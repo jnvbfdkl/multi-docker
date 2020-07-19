@@ -1,0 +1,36 @@
+{
+    "AWSEBDockerrunVersion" : "2",
+    "containerDefinitions" : [
+        {
+            "name": "client",
+            "image": "invicit/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "invicit/multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "invicit/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "invicit/multi-nginx",
+            "essential": true,
+            "portMapping": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+
+    ]
+}
